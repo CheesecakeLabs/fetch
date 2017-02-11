@@ -1,0 +1,54 @@
+{
+  "name": "farfetch",
+  "version": "1.0.0",
+  "description": "Opinionated fetch wrapper for modern front-end.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "eslint": "eslint src tests"
+  },
+  "browser": {
+    "node-fetch": "./src/utils/fetch-browser.js"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      ".*": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheesecakeLabs/farfetch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CheesecakeLabs/farfetch/issues"
+  },
+  "homepage": "https://github.com/CheesecakeLabs/farfetch#readme",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^18.0.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-no-lenght": "^1.0.1",
+    "jest": "^18.1.0",
+    "nock": "^9.0.5",
+    "yarn": "^0.19.1"
+  },
+  "dependencies": {
+    "eslint": "^3.15.0",
+    "lodash.identity": "^3.0.0",
+    "lodash.isstring": "^4.0.1",
+    "lodash.pickby": "^4.6.0",
+    "node-fetch": "^1.6.3",
+    "normalize-url": "^1.9.0"
+  }
+}
