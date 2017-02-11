@@ -1,4 +1,4 @@
-# fetchy
+# farfetch
 
 Opinionated fetch wrapper for modern front-end.
 
@@ -7,30 +7,30 @@ Opinionated fetch wrapper for modern front-end.
 ```javascript
   // request.js
   import fetchy from 'fetchy'
-  export default fetchy.api('http://your_api.io/api/v1/') 
+  export default fetchy.api('http://your_api.io/api/v1/')
 ```
 
 
 ## GET
 ```javascript
   import fetchy from './request'
-  
-  fetchy.get('users') 
+
+  fetchy.get('users')
 ```
 ## POST
 
 ```javascript
   import fetchy from './request'
-  
-  fetchy.post('users', { body }) 
+
+  fetchy.post('users', { body })
 ```
 
 ## PUT
 
 ```javascript
   import fetchy from './request'
-  
-  fetchy.put('users', { body }) 
+
+  fetchy.put('users', { body })
 ```
 
 ## DELETE
