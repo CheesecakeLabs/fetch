@@ -1,7 +1,11 @@
 import fetch from 'node-fetch'
+import _pickBy from 'lodash.pickby'
+import _identity from 'lodash.identity'
 
 import normalizeURL from './utils/normalize-url'
 import appendParams from './utils/append-params'
+
+const PARSE_ERROR_RESPONSE = { message: 'PARSE_ERROR' }
 
 export default class Farfetch {
 
@@ -19,14 +23,14 @@ export default class Farfetch {
     return fetch(this.getURL(url, noBaseURL, params), {
       method: 'GET',
       ...opts,
-      headers: {
+      headers: _pickBy({
         'Content-type': 'application/json; charset=UTF-8',
         ...authorization,
         ...headers,
-      },
+      }, _identity),
     })
     .then(response => Promise.all([response.json(), response.ok]))
-    .catch(() => Promise.reject({ message: 'PARSE_ERROR' }))
+    .catch(() => Promise.reject(PARSE_ERROR_RESPONSE))
     .then(([response, ok]) => {
       if (!ok) {
         return Promise.reject(response)
@@ -69,6 +73,17 @@ export default class Farfetch {
 
   delete(url, options = {}, body) {
     return this.createRequest('DELETE', url, options, body)
+  }
+
+  upload(url, options = {}, formData) {
+    return this.request(url, {
+      ...options,
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-type': undefined,
+      },
+    })
   }
 
 }
