@@ -15,5 +15,4 @@ const appendURL = (...pieces) => pieces.reduce((acc, current) => {
   return `${acc}/${current}`
 }, '')
 
-// Appended slash at end to remove CORS
 export default (...pieces) => normalizeURL(`${appendURL(pieces)}/`, { removeTrailingSlash: false })
