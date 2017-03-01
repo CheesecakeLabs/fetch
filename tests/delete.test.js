@@ -11,8 +11,9 @@ const API_TEST = '/login/'
 
 const fetch = farfetch.api(URL_TEST)
 
-test('get', async () => {
-  nock(URL_TEST).get(API_TEST).reply(200, { body: 'success' })
-  const request = await fetch.get(API_TEST)
-  expect(request).toEqual({ body: 'success' })
+test('delete', async () => {
+  nock(URL_TEST).delete(API_TEST).reply(204, null)
+
+  const request = await fetch.delete(API_TEST)
+  expect(request).toEqual({})
 })

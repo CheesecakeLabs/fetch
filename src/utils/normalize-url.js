@@ -1,7 +1,7 @@
 import normalizeURL from 'normalize-url'
-import _isString from 'lodash.isstring'
 
-const hasHTTPProtocol = url => _isString(url) && url.startsWith('http')
+const isString = string => typeof string === 'string'
+const hasHTTPProtocol = url => isString(url) && url.startsWith('http')
 
 const appendURL = (...pieces) => pieces.reduce((acc, current) => {
   if (Array.isArray(current)) {

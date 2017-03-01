@@ -1,36 +1,43 @@
-import fetch from 'node-fetch'
-import _pickBy from 'lodash.pickby'
-import _identity from 'lodash.identity'
-
+import compactObject from './utils/compact-object'
 import normalizeURL from './utils/normalize-url'
 import appendParams from './utils/append-params'
 
 const PARSE_ERROR_RESPONSE = { message: 'PARSE_ERROR' }
+const handleParseError = error => Promise.reject({ ...PARSE_ERROR_RESPONSE, error })
 
-export default class Farfetch {
+const defaultOptions = {
+  headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+  },
+}
 
-  constructor(defaultURL) {
+export default class Fetch {
+
+  constructor(defaultURL, defaults) {
     this.defaultURL = defaultURL
+    this.defaults = defaults || defaultOptions
   }
 
-  static api(defaultURL) {
-    return new Farfetch(defaultURL)
+  static api(defaultURL, defaultHeaders) {
+    return new Fetch(defaultURL, defaultHeaders)
   }
 
   request(url, options = {}) {
     const { headers, key, noBaseURL, params, ...opts } = options
     const authorization = key ? { Authorization: `Token ${key}` } : {}
-    return fetch(this.getURL(url, noBaseURL, params), {
-      method: 'GET',
+    const finalURL = this.getURL(url, noBaseURL, params)
+    const { headers: defaultHeaders, ...defaults } = this.defaults
+    return fetch(finalURL, {
       ...opts,
-      headers: _pickBy({
-        'Content-type': 'application/json; charset=UTF-8',
+      ...defaults,
+      headers: compactObject({
+        ...defaultHeaders,
         ...authorization,
         ...headers,
-      }, _identity),
+      }),
     })
     .then(response => Promise.all([response.json(), response.ok]))
-    .catch(() => Promise.reject(PARSE_ERROR_RESPONSE))
+    .catch(handleParseError)
     .then(([response, ok]) => {
       if (!ok) {
         return Promise.reject(response)
