@@ -2,11 +2,17 @@
 
 Opinionated fetch wrapper for modern front-end.
 
+## Install
+
+```
+npm install --save @ckldeveloper/fetch
+```
+
 ## Initialize
 
 ```javascript
   // request.js
-  import fetch from 'fetch'
+  import fetch from '@ckldeveloper/fetch'
   export default fetch.api('http://your_api.io/api/v1/', defaultOptions)
 ```
 
