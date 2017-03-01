@@ -15,6 +15,17 @@ function returnRequestHeaders() {
   return this.req.headers
 }
 
+test('rejects with status code != 2XX', async () => {
+  nock(URL_TEST).get(API_TEST).reply(400, returnRequestHeaders)
+  expect(fetch.get(API_TEST).catch(() => { throw new Error() })).toThrow()
+})
+
+test('fetches without baseURL', async () => {
+  nock('http://other-api.localhost').get('/login/').reply(200, returnRequestHeaders)
+  const request = await fetch.get('http://other-api.localhost/login/', { noBaseURL: true })
+  expect(request.host).toBe('other-api.localhost')
+})
+
 test('has default content-type header and has no Authorization header', async () => {
   nock(URL_TEST).get(API_TEST).reply(200, returnRequestHeaders)
 

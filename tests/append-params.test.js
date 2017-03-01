@@ -6,8 +6,9 @@ test('append params to a string', () => {
     a: 'some value',
     b: false,
     c: undefined,
+    d: ['a', 'b'],
   }
 
-  expect(appendParams(url, params)).toBe('http://some.thing/?a=some value&b=false')
+  expect(appendParams(url, params)).toBe('http://some.thing/?a=some value&b=false&d[]=a&d[]=b')
   expect(appendParams(url)).toBe('http://some.thing')
 })
