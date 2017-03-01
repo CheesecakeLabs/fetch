@@ -1,0 +1,82 @@
+{
+"name": "@ckldeveloper/fetch",
+  "version": "v1.0.0",
+  "description": "Opinionated fetch wrapper for modern front-end.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "eslint": "eslint src tests",
+    "build": "rm -fr build && babel src --out-dir build && cp package.json build && cp README.md build",
+    "deploy": "npm run build && cd build && npm publish --access=public"
+  },
+  "jest": {
+    "verbose": true,
+    "setupFiles": [
+      "./tests/config.test.js"
+    ],
+    "testPathIgnorePatterns": [
+      "./tests/config.test.js"
+    ],
+    "transform": {
+      ".*": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js"
+    ]
+  },
+  "babel": {
+    "presets": ["es2015", "stage-0"]
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": "airbnb/base",
+    "env": {
+      "browser": true,
+      "node": true,
+      "jest": true
+    },
+    "rules": {
+      "semi": [2, "never"],
+      "no-console": [2, {"allow": ["warn", "info", "error"]}],
+      "import/named": 2,
+      "no-multiple-empty-lines": ["error", {"max": 1, "maxEOF": 1, "maxBOF": 0}],
+      "import/order": ["error", {
+        "groups": ["builtin", "external", "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }],
+      "no-lenght/no-lenght": "error"
+    },
+    "plugins": [
+      "no-lenght"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheesecakeLabs/fetch.git"
+  },
+  "author": "CheesecakeLabs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CheesecakeLabs/fetch/issues"
+  },
+  "homepage": "https://github.com/CheesecakeLabs/fetch#readme",
+  "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-eslint": "^7.1.1",
+    "babel-jest": "^18.0.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-0": "^6.22.0",
+    "babel-register": "^6.22.0",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-no-lenght": "^1.0.1",
+    "form-data": "^2.1.2",
+    "jest": "^18.1.0",
+    "nock": "^9.0.5",
+    "node-fetch": "^1.6.3"
+  },
+  "dependencies": {
+    "normalize-url": "^1.9.0"
+  }
+}

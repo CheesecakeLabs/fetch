@@ -1,4 +1,4 @@
-# fetchy
+# fetch
 
 Opinionated fetch wrapper for modern front-end.
 
@@ -6,37 +6,19 @@ Opinionated fetch wrapper for modern front-end.
 
 ```javascript
   // request.js
-  import fetchy from 'fetchy'
-  export default fetchy.api('http://your_api.io/api/v1/') 
+  import fetch from 'fetch'
+  export default fetch.api('http://your_api.io/api/v1/', defaultOptions)
 ```
 
 
-## GET
+## REQUEST
 ```javascript
-  import fetchy from './request'
-  
-  fetchy.get('users') 
+  import fetch from './request'
+
+  fetch.get('users')
+  fetch.post('users', options, body)
+  fetch.patch('users', options, body)
+  fetch.put('users', options, body)
+  fetch.delete('users')
+  fetch.upload('users', options, formData)
 ```
-## POST
-
-```javascript
-  import fetchy from './request'
-  
-  fetchy.post('users', { body }) 
-```
-
-## PUT
-
-```javascript
-  import fetchy from './request'
-  
-  fetchy.put('users', { body }) 
-```
-
-## DELETE
-
-## PATCH
-
-## Utils
-
-### snakeCase
