@@ -84,8 +84,8 @@ export default class Fetch {
 
   upload(url, options = {}, formData) {
     return this.request(url, {
-      ...options,
       method: 'POST',
+      ...options,
       body: formData,
       headers: {
         'Content-type': undefined,
