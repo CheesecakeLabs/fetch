@@ -15,4 +15,7 @@ const appendURL = (...pieces) => pieces.reduce((acc, current) => {
   return `${acc}/${current}`
 }, '')
 
-export default (...pieces) => normalizeURL(`${appendURL(pieces)}/`, { removeTrailingSlash: false })
+export default (...pieces) => (options = {}) => normalizeURL(
+    `${appendURL(pieces)}/`,
+    { removeTrailingSlash: options.removeTrailingSlash },
+)

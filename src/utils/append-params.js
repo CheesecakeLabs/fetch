@@ -10,5 +10,5 @@ const appendParams = (url, cleanParams) => {
   return url
 }
 
-export default (url, params) => normalizeURL(appendParams(url, compactObject(params)),
-    { removeTrailingSlash: false })
+export default (url, params, options) =>
+  normalizeURL(appendParams(url, compactObject(params)), options)

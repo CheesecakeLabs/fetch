@@ -13,9 +13,10 @@ const defaultOptions = {
 
 export default class Fetch {
 
-  constructor(defaultURL, defaults) {
+  constructor(defaultURL, defaults, options = {}) {
     this.defaultURL = defaultURL
     this.defaults = defaults || defaultOptions
+    this.options = options
   }
 
   static api(defaultURL, defaultHeaders) {
@@ -23,9 +24,16 @@ export default class Fetch {
   }
 
   request(url, options = {}) {
-    const { headers, key, noBaseURL, params, ...opts } = options
+    const { headers, key, noBaseURL, removeTrailingSlash, params, ...opts } = options
     const authorization = key ? { Authorization: `Token ${key}` } : {}
-    const finalURL = this.getURL(url, noBaseURL, params)
+    const finalURL = this.getURL(
+      url,
+      {
+        noBaseURL,
+        removeTrailingSlash: removeTrailingSlash || this.options.removeTrailingSlash,
+      },
+      params,
+    )
     const { headers: defaultHeaders, ...defaults } = this.defaults
     return fetch(finalURL, {
       ...opts,
@@ -46,12 +54,12 @@ export default class Fetch {
     })
   }
 
-  getURL(url, noBaseURL = false, params = {}) {
-    if (noBaseURL) {
-      return appendParams(normalizeURL(url), params)
+  getURL(url, options = this.options, params = {}) {
+    if (options.noBaseURL) {
+      return appendParams(normalizeURL(url)(options), params, options)
     }
 
-    return appendParams(normalizeURL(this.defaultURL, url), params)
+    return appendParams(normalizeURL(this.defaultURL, url)(options), params, options)
   }
 
   get(url, options) {

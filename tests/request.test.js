@@ -26,6 +26,36 @@ test('fetches without baseURL', async () => {
   expect(request.host).toBe('other-api.localhost')
 })
 
+test('gets a formatted final URL', () => {
+  const url = 'http://some.thing'
+  const params = {
+    a: 'some value',
+    b: false,
+    c: undefined,
+    d: ['a', 'b'],
+    teste: [['a', 'b'], ['c', 'd']],
+  }
+
+  expect(fetch.getURL(url, {}, params))
+    .toBe('http://some.thing/?a=some value&b=false&d[]=a&d[]=b&teste[]=a,b&teste[]=c,d')
+})
+
+test('with removeTrailingSlash = true ', () => {
+  const url = 'http://some.thing/end/trailing/slash/'
+  expect(fetch.getURL(url, { removeTrailingSlash: true }))
+    .toBe('http://some.thing/end/trailing/slash')
+})
+
+test('with removeTrailingSlash as option instance ', () => {
+  const BASE = 'http://some.thing/'
+  const customFetch = farfetch.api(BASE, false, { removeTrailingSlash: true })
+  const path = 'end/trailing/slash/'
+  expect(customFetch.getURL(path, { removeTrailingSlash: true }))
+    .toBe('http://some.thing/end/trailing/slash')
+  expect(customFetch.getURL(path))
+    .toBe('http://some.thing/end/trailing/slash')
+})
+
 test('has default content-type header and has no Authorization header', async () => {
   nock(URL_TEST).get(API_TEST).reply(200, returnRequestHeaders)
 
