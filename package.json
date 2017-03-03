@@ -4,7 +4,7 @@
   "description": "Opinionated fetch wrapper for modern front-end.",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "eslint src tests && jest",
     "eslint": "eslint src tests",
     "build": "rm -fr build && babel src --out-dir build && cp package.json build && cp README.md build",
     "deploy": "npm run build && cd build && npm publish --access=public"
