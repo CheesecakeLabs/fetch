@@ -1,6 +1,6 @@
 {
   "name": "@ckldeveloper/fetch",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Opinionated fetch wrapper for modern front-end.",
   "main": "index.js",
   "scripts": {
