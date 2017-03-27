@@ -44,7 +44,12 @@ export default class Fetch {
         ...headers,
       }),
     })
-    .then(response => Promise.all([response.json(), response.ok]))
+    .then((response) => {
+      if (response.headers.get('content-type') === 'application/json') {
+        return Promise.all([response.json(), response.ok])
+      }
+      return Promise.all([response.text(), response.ok])
+    })
     .catch(handleParseError)
     .then(([response, ok]) => {
       if (!ok) {
