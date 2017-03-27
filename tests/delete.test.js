@@ -15,5 +15,5 @@ test('delete', async () => {
   nock(URL_TEST).delete(API_TEST).reply(204, null)
 
   const request = await fetch.delete(API_TEST)
-  expect(request).toEqual({})
+  expect(request).toEqual('')
 })
