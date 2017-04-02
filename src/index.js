@@ -1,3 +1,4 @@
+import './utils/polyfill'
 import compactObject from './utils/compact-object'
 import normalizeURL from './utils/normalize-url'
 import appendParams from './utils/append-params'
