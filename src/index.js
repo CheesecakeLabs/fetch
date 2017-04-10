@@ -12,6 +12,8 @@ const defaultOptions = {
   },
 }
 
+const contentTypeIsJSON = header => header && header.includes('application/json')
+
 export default class Fetch {
 
   constructor(defaultURL, defaults, options = {}) {
@@ -46,7 +48,7 @@ export default class Fetch {
       }),
     })
     .then((response) => {
-      if (response.headers.get('content-type').includes('application/json')) {
+      if (contentTypeIsJSON(response.headers.get('content-type'))) {
         return Promise.all([response.json(), response.ok])
       }
       return Promise.all([response.text(), response.ok])
