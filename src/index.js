@@ -4,9 +4,11 @@ import normalizeURL from './utils/normalize-url'
 import appendParams from './utils/append-params'
 
 const PARSE_ERROR_RESPONSE = { message: 'PARSE_ERROR' }
+const DEFAULT_AUTHORIZATION_KEYWORD = 'Token '
+const DEFAULT_AUTHORIZATION_HEADER = 'Authorization'
 const handleParseError = error => Promise.reject({ ...PARSE_ERROR_RESPONSE, error })
 
-const defaultOptions = {
+const FETCH_DEFAULTS = {
   headers: {
     'Content-type': 'application/json; charset=UTF-8',
   },
@@ -18,17 +20,28 @@ export default class Fetch {
 
   constructor(defaultURL, defaults, options = {}) {
     this.defaultURL = defaultURL
-    this.defaults = defaults || defaultOptions
+    this.defaults = defaults || FETCH_DEFAULTS
     this.options = options
   }
 
-  static api(defaultURL, defaultHeaders) {
-    return new Fetch(defaultURL, defaultHeaders)
+  static api(defaultURL, defaultHeaders, options) {
+    return new Fetch(defaultURL, defaultHeaders, options)
+  }
+
+  buidAuthorizationHeader(key) {
+    if (key) {
+      const authKeyword = this.options.defaultAuthorizationKeyword || DEFAULT_AUTHORIZATION_KEYWORD
+      const authHeader = this.options.defaultAuthorizationHeader || DEFAULT_AUTHORIZATION_HEADER
+      return {
+        [authHeader]: `${authKeyword}${key}`,
+      }
+    }
+    return {}
   }
 
   request(url, options = {}) {
     const { headers, key, noBaseURL, removeTrailingSlash, params, ...opts } = options
-    const authorization = key ? { Authorization: `Token ${key}` } : {}
+    const authorization = this.buidAuthorizationHeader(key)
     const finalURL = this.getURL(
       url,
       {
