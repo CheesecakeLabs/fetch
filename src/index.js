@@ -30,7 +30,11 @@ export default class Fetch {
 
   buildAuthorizationHeader(key) {
     if (key) {
-      const authKeyword = this.options.defaultAuthorizationKeyword || DEFAULT_AUTHORIZATION_KEYWORD
+      const authKeyword = (
+        this.options.defaultAuthorizationKeyword === undefined
+        ? DEFAULT_AUTHORIZATION_KEYWORD
+        : this.options.defaultAuthorizationKeyword
+      )
       const authHeader = this.options.defaultAuthorizationHeader || DEFAULT_AUTHORIZATION_HEADER
       return {
         [authHeader]: `${authKeyword}${key}`,
