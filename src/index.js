@@ -28,7 +28,7 @@ export default class Fetch {
     return new Fetch(defaultURL, defaultHeaders, options)
   }
 
-  buidAuthorizationHeader(key) {
+  buildAuthorizationHeader(key) {
     if (key) {
       const authKeyword = this.options.defaultAuthorizationKeyword || DEFAULT_AUTHORIZATION_KEYWORD
       const authHeader = this.options.defaultAuthorizationHeader || DEFAULT_AUTHORIZATION_HEADER
@@ -41,7 +41,7 @@ export default class Fetch {
 
   request(url, options = {}) {
     const { headers, key, noBaseURL, removeTrailingSlash, params, ...opts } = options
-    const authorization = this.buidAuthorizationHeader(key)
+    const authorization = this.buildAuthorizationHeader(key)
     const finalURL = this.getURL(
       url,
       {
