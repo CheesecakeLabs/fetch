@@ -1,6 +1,6 @@
 {
   "name": "@cheesecakelabs/fetch",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Opinionated fetch wrapper for modern front-end.",
   "main": "index.js",
   "scripts": {
